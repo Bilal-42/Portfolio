@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import DataEntryPage from './components/DataEntryPage';
+import Portfolio from './components/Portfolio';
 import './App.css';
 
 function App() {
+  const [portfolioData, setPortfolioData] = useState(null);
+  const [darkMode, setDarkMode] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className={darkMode ? 'dark' : 'light'}>
+        <Routes>
+          <Route path="/" element={<DataEntryPage setPortfolioData={setPortfolioData} />} />
+          <Route 
+            path="/portfolio" 
+            element={
+              <Portfolio 
+                portfolioData={portfolioData} 
+                darkMode={darkMode} 
+                setDarkMode={setDarkMode} 
+              />
+            } 
+          />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
