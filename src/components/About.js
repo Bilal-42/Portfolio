@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const About = ({ profilePicture, skills, interests, description, darkMode }) => {
+const About = ({ profilePicture, skills = [], interests = [], description, darkMode }) => {
   return (
     <section className="py-20 px-4">
       <div className="max-w-6xl mx-auto">
@@ -13,11 +13,13 @@ const About = ({ profilePicture, skills, interests, description, darkMode }) => 
             transition={{ duration: 0.5 }}
             className="relative"
           >
-            <img
-              src={profilePicture || '/default-profile.jpg'}
-              alt="Profile"
-              className="rounded-lg shadow-xl w-full max-w-md mx-auto"
-            />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src={profilePicture}
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </motion.div>
           
           <motion.div
@@ -25,22 +27,28 @@ const About = ({ profilePicture, skills, interests, description, darkMode }) => 
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            className="space-y-6"
           >
-            <h2 className="text-3xl font-bold mb-6">About Me</h2>
-            <p className={`text-lg mb-8 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+            <h2 className={`text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              About Me
+            </h2>
+            
+            <p className={`text-lg ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
               {description}
             </p>
             
-            <div className="mb-8">
-              <h3 className="text-xl font-semibold mb-4">Skills</h3>
+            <div>
+              <h3 className={`text-xl font-semibold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                Skills
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {skills?.map((skill, index) => (
+                {Array.isArray(skills) && skills.map((skill, index) => (
                   <span
                     key={index}
                     className={`px-3 py-1 rounded-full text-sm ${
-                      darkMode 
-                        ? 'bg-gray-700 text-gray-200' 
-                        : 'bg-gray-200 text-gray-800'
+                      darkMode
+                        ? 'bg-gray-800 text-gray-300'
+                        : 'bg-gray-100 text-gray-700'
                     }`}
                   >
                     {skill}
@@ -50,15 +58,17 @@ const About = ({ profilePicture, skills, interests, description, darkMode }) => 
             </div>
             
             <div>
-              <h3 className="text-xl font-semibold mb-4">Interests</h3>
+              <h3 className={`text-xl font-semibold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+                Interests
+              </h3>
               <div className="flex flex-wrap gap-2">
-                {interests?.map((interest, index) => (
+                {Array.isArray(interests) && interests.map((interest, index) => (
                   <span
                     key={index}
                     className={`px-3 py-1 rounded-full text-sm ${
-                      darkMode 
-                        ? 'bg-gray-700 text-gray-200' 
-                        : 'bg-gray-200 text-gray-800'
+                      darkMode
+                        ? 'bg-gray-800 text-gray-300'
+                        : 'bg-gray-100 text-gray-700'
                     }`}
                   >
                     {interest}
